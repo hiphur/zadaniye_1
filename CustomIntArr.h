@@ -63,7 +63,7 @@ public:
         span.size = m_size;
         return span;
     }
-    int SumOfPositiveElements(){
+    int sumOfPositiveElements(){
         int sum = 0;
         for(int i = 0; i < m_size; i++){
             if(m_arr[i] > 0){
@@ -90,6 +90,14 @@ public:
         }
         return count;
     }
+    double average() {
+        int sum = 0;
+        for (int i = 0; i < m_size; i++) {
+            sum += m_arr[i];
+
+        }
+        return sum / m_size;
+    }
     void pushBack(int value) {
         if(m_size == m_capacity) {
             changeCapacity();
@@ -103,7 +111,6 @@ public:
         }
 
         delete[] m_arr;
-//        m_size = other.m_size;
         m_size = other.m_size;
         m_capacity = other.m_capacity;
 
@@ -118,7 +125,17 @@ public:
         }
         return *this;
     }
-
+    //might not be working
+    CustomIntArr resize(int begin, int end){
+        int newSize = end - begin;
+        int* newArr = new int[newSize];
+        for(int i = begin, j = 0; i < end; i++, j++){
+            newArr[j] = m_arr[i];
+        }
+        m_arr = newArr;
+        m_size = newSize;
+        m_capacity = newSize;
+    }
     int max(){
         if(m_size == 0) {
             return 0;
