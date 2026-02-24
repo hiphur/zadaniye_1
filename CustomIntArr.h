@@ -4,163 +4,45 @@
 
 #ifndef ZADANIYE_1_CUSTOMINTARR_H
 #define ZADANIYE_1_CUSTOMINTARR_H
-struct Span{
-    int* arr;
-    int size;
-};
+
+#include <string>
+
 class CustomIntArr{
 private:
     int m_size;
     int* m_arr;
     int m_capacity;
-    void changeCapacity() {
-        if(m_capacity == 0) {
-            m_capacity = 1;
-        }
-        else {
-            m_capacity *= 2;
-        }
-        int* newArr = new int[m_capacity];
-        for(int i = 0; i < m_capacity; i++) {
-            newArr[i] = m_arr[i];
-        }
-        delete[] m_arr;
-        m_arr = newArr;
-    }
+    void changeCapacity();
 public:
-    void fillWithNulls(){
-        for(int i = 0; i < m_size; i++){
-            m_arr[i] = 0;
-        }
-    }
-    CustomIntArr(int size = 0)
-    : m_size(size), m_arr(new int[size]), m_capacity(size){
-        fillWithNulls();
-    }
-    CustomIntArr(Span span)
-    : m_arr(span.arr), m_size(span.size), m_capacity(span.size){
-        fillWithNulls();
-    }
-    ~CustomIntArr(){
-        delete[] m_arr;
-    }
-    int getSize(){
-        return m_size;
-    };
-    int at(int index){
-        return m_arr[index];
-    }
-    int sumAll(){
-        int sum = 0;
-        for(int i = 0; i < m_size; i++){
-            sum += m_arr[i];
-        }
-        return sum;
-    }
-    Span getSpanCopy(){
-        Span span;
-        span.arr = m_arr;
-        span.size = m_size;
-        return span;
-    }
-    int sumOfPositiveElements(){
-        int sum = 0;
-        for(int i = 0; i < m_size; i++){
-            if(m_arr[i] > 0){
-                sum += m_arr[i];
-            }
-        }
-        return sum;
-    }
-    int evenNumberCount() {
-        int count = 0;
-        for (int i = 0; i < m_size; i++) {
-            if (m_arr[i] % 2 == 0) {
-                count++;
-            }
-        }
-        return count;
-    }
-    int negativeNumberCount() {
-        int count = 0;
-        for (int i = 0; i < m_size; i++) {
-            if (m_arr[i] < 0) {
-                count++;
-            }
-        }
-        return count;
-    }
-    double average() {
-        int sum = 0;
-        for (int i = 0; i < m_size; i++) {
-            sum += m_arr[i];
+    void fillWithNulls();
+    CustomIntArr(int size);
+    CustomIntArr();
+    ~CustomIntArr();
+    int getSize() const;
+    int at(const int index);
+    int& operator[](int index);
+    const int& operator[](int index) const;
+    void swap(const int index1, const int index2);
+    void sort();
+    int sumAll();
+    int sumOfPositiveElements();
+    int elementsInRangeCount(const int a, const int b);
+    int evenNumberCount();
+    int negativeNumberCount();
+    double average();
+    int max();
+    int min();
+    void pushBack(const int value);
+    CustomIntArr& operator=(const CustomIntArr& other);
+    void print();
+    void readFromFile(std::string filePath, int numbersToRead);
 
-        }
-        return sum / m_size;
-    }
-    void pushBack(int value) {
-        if(m_size == m_capacity) {
-            changeCapacity();
-        }
-        m_arr[m_size] = value;
-        m_size++;
-    }
-    CustomIntArr& operator=(const CustomIntArr& other){
-        if(this == &other){
-            return *this;
-        }
 
-        delete[] m_arr;
-        m_size = other.m_size;
-        m_capacity = other.m_capacity;
-
-        if(other.m_arr == nullptr){
-            m_arr = nullptr;
-        }
-        else{
-            m_arr = new int[m_capacity];
-            for (int i = 0; i < m_size; ++i) {
-                m_arr[i] = other.m_arr[i];
-            }
-        }
-        return *this;
-    }
     //might not be working
-    CustomIntArr resize(int begin, int end){
-        int newSize = end - begin;
-        int* newArr = new int[newSize];
-        for(int i = begin, j = 0; i < end; i++, j++){
-            newArr[j] = m_arr[i];
-        }
-        m_arr = newArr;
-        m_size = newSize;
-        m_capacity = newSize;
-    }
-    int max(){
-        if(m_size == 0) {
-            return 0;
-        }
-        int arrMax = m_arr[0];
-        for (int i = 0; i < m_size; i++) {
-            if (arrMax < m_arr[i]) {
-                arrMax = m_arr[i];
-            }
-        }
-        return arrMax;
+    CustomIntArr resize(const int begin, const int end);
 
-    }
-    int min(){
-        if(m_size == 0) {
-            return 0;
-        }
-        int arrMin = m_arr[0];
-        for (int i = 0; i < m_size; i++) {
-            if (arrMin < m_arr[i]) {
-                arrMin = m_arr[i];
-            }
-        }
-        return arrMin;
-    }
+
+
 };
 
 #endif //ZADANIYE_1_CUSTOMINTARR_H
