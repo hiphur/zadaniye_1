@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(zadaniye_1 main.cpp
         ProgramFlow.cpp
-        ProgramFlow.h)
+        ProgramFlow.h
+        CustomIntArr.cpp
+)

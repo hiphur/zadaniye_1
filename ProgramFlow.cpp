@@ -5,7 +5,6 @@
 #include <fstream>
 #include <string>
 #include "CustomIntArr.h"
-#include "CustomIntArr.cpp"
 #include "ProgramFlow.h"
 
 using std::cout;
