@@ -1,15 +1,24 @@
 //
 // Created by user on 24.02.2026.
 //
+#pragma once
 #include <iostream>
-#include <fstream>
-#include <string>
-#include "CustomIntArr.h"
-#include "ProgramFlow.h"
+#include "CustomIntArr.cpp"
+//#include "CustomIntArr.h"
+//#include "ProgramFlow.h"
 
 using std::cout;
 using std::endl;
-
+class ProgramFlow {
+private:
+    //печатает CustomIntArr d консоль
+    void printCustomArr(const CustomIntArr &arr);
+public:
+    //запускает программу
+    void run();
+    ProgramFlow();
+    ~ProgramFlow();
+};
 void ProgramFlow::printCustomArr(const CustomIntArr &arr){
     for(int i = 0; i < arr.getSize(); i++){
         //operator[]
@@ -23,14 +32,14 @@ void ProgramFlow::run(){
     CustomIntArr a(arrSize);
 
     cout << "filling in an array from file\n";
-    a.readFromFile("numbers.txt", arrSize);
+    //a.readFromFile("numbers.txt", arrSize);
     printCustomArr(a);
 
     cout << "max and min\n";
     cout << a.max() << " " << a.min() << endl;
 
     cout << "Copy of an array\n";
-//    operator=
+    //    operator=
     CustomIntArr b;
     b = a;
     printCustomArr(b);

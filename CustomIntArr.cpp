@@ -1,7 +1,8 @@
 //
 // Created by user on 22.02.2026.
 //
-#include "CustomIntArr.h"
+//#include "CustomIntArr.h"
+#pragma once
 #include <stdexcept>
 #include <fstream>
 #include <iostream>
@@ -10,6 +11,55 @@
 //    int* arr;
 //    int size;
 //};
+#include <string>
+
+class CustomIntArr{
+private:
+    int m_size;
+    int* m_arr;
+    //насколько массив может расшириться
+    int m_capacity;
+    //метод для расширения
+    void changeCapacity();
+    //TODO: доделать
+    void swap(const int index1, const int index2);
+public:
+    //заполняет массив нулями
+    void fillWithNulls();
+
+    CustomIntArr(int size);
+    //size = 0
+    CustomIntArr();
+    ~CustomIntArr();
+    int getSize() const;
+
+    //доступ к элементу
+    int& operator[](int index);
+    //доступ к элементу, const перегрузка т.к. она нужно для передачи по const reference
+    const int& operator[](int index) const;
+
+    void sort();
+    int sumAll();
+    int sumOfPositiveElements();
+    int elementsInRangeCount(const int a, const int b);
+    int evenNumberCount();
+    int negativeNumberCount();
+    double average();
+    int max();
+    int min();
+    void pushBack(const int value);
+    CustomIntArr& operator=(const CustomIntArr& other);
+    void print();
+    void readFromFile(std::string filePath, int numbersToRead);
+    void readFromConsole(int numbersToRead);
+
+
+    //might not be working
+   // CustomIntArr resize(const int begin, const int end);
+
+
+
+};
 CustomIntArr::~CustomIntArr() {
     delete[] m_arr;
 }
@@ -45,7 +95,15 @@ void CustomIntArr::fillWithNulls() {
 int CustomIntArr::getSize() const{
     return m_size;
 }
-int CustomIntArr::at(const int index){
+//int CustomIntArr::at(const int index){
+//    if(index < m_size && index >= 0){
+//        return m_arr[index];
+//    }
+//    else{
+//        throw std::invalid_argument("index is not in range");
+//    }
+//}
+int& CustomIntArr::operator[](int index){
     if(index < m_size && index >= 0){
         return m_arr[index];
     }
@@ -53,11 +111,11 @@ int CustomIntArr::at(const int index){
         throw std::invalid_argument("index is not in range");
     }
 }
-int& CustomIntArr::operator[](int index){
-    return m_arr[index];
-}
 const int& CustomIntArr::operator[](int index) const{
+
     return m_arr[index];
+
+
 }
 void CustomIntArr::swap(const int index1, const int index2){
     if(index1 < m_size && index1 >= 0
@@ -167,16 +225,16 @@ CustomIntArr& CustomIntArr::operator=(const CustomIntArr& other){
     return *this;
 }
 //might not be working
-CustomIntArr CustomIntArr::resize(const int begin, const int end){
-    int newSize = end - begin;
-    int* newArr = new int[newSize];
-    for(int i = begin, j = 0; i < end; i++, j++){
-        newArr[j] = m_arr[i];
-    }
-    m_arr = newArr;
-    m_size = newSize;
-    m_capacity = newSize;
-}
+//CustomIntArr CustomIntArr::resize(const int begin, const int end){
+//    int newSize = end - begin;
+//    int* newArr = new int[newSize];
+//    for(int i = begin, j = 0; i < end; i++, j++){
+//        newArr[j] = m_arr[i];
+//    }
+//    m_arr = newArr;
+//    m_size = newSize;
+//    m_capacity = newSize;
+//}
 int CustomIntArr::max(){
     if(m_size == 0) {
         return 0;
